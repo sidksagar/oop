@@ -1,0 +1,51 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+class employee
+{
+ char name[20];
+ int id;
+ double salary;
+ public:
+ void accept()
+ {
+  cout<<"enter name";
+  cin>>name;
+  cout<<"enter id";
+  cin>>id;
+  cout<<"enter salary";
+  cin>>salary;
+ }
+ void display()
+ {
+  cout<<"\n enter name:"<<name;
+  cout<<"\n enter id"<<id;
+  cout<<"\n enter salary:"<<salary;
+ }
+};
+int main()
+{
+employee o[5];
+fstream f;
+int i,n;
+f.open("b16.txt");
+cout<<"\n how many employee information do you need to store?";
+cin>>n;
+cout<<"\n enter information of employee in this format(name/id/salary)";
+for(i=0;i<n;i++)
+{
+ cout<<"\n enter information of" <<i<<"\n employee";
+ o[i].accept();
+ f.write((char*)&o[i],sizeof o[i]);
+}
+f.close();
+f.open("b16.txt",ios::in);
+cout<<"\n information of employees is as follows";
+for(i=0;i<n;i++)
+{
+ f.read((char*)&o[i],sizeof o[i]);
+ o[i].display();
+}
+f.close();
+return 0;
+}
