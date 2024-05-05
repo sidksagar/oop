@@ -1,0 +1,109 @@
+#include <iostream>
+using namespace std;
+class publication
+{
+  string title;
+  float price;
+  public:
+  void setdata()
+  {
+      cout<<"Enter the title:  " <<endl;
+      getline (cin, title);
+      if ( "\0" == title)
+      throw string("Error: Title is an empty string.");
+      cout<<"Enter the price:  " <<endl;
+      cin>> price;
+      if (price <= 0)
+         throw string ("Error: Incorrect Price.");
+  }
+    void display()
+    {
+      cout<<"Title is: " << title <<endl;
+      cout<<"Price is: "<<price<<endl;
+    }
+    void clear()
+    {
+      title = '\0';
+      price = 0.0;
+    }
+};
+class book : public publication
+{
+    int pgcount ;
+    public:
+    void setdata()
+    {
+      publication::setdata();
+      cout<<"Enter the pgcount:  " <<endl;
+      cin>> pgcount;
+      if (pgcount <= 0)
+         throw string ("Error: Incorrect Pagecount.");
+    }
+    void display()
+    {
+      publication::display() ;
+      cout<< "Number of pages are: "<< pgcount <<endl;
+    }
+    void clear()
+    {
+      publication::clear() ;
+      pgcount = 0;
+    }
+} ;
+class Tape : public publication
+{
+    int ptime;
+    public:
+    void setdata()
+    {
+      publication::setdata();
+      cout<<"Enter the playing time:  " <<endl;
+      cin>> ptime;
+      if(ptime <= 0)
+         throw string ("Error: Incorrect Playing Time.");
+    }
+    void display()
+    {
+      publication::display();
+      cout<< "Playing Time: "<< ptime <<endl ;
+    }
+    void clear()
+    {
+      publication::clear();
+      ptime = 0;
+    }
+} ;
+int main()
+{
+    book bk;
+    Tape tp;
+    string mystr;
+    try
+    {
+      cout<<"Enter Book Details: "<<endl;
+      bk.setdata();
+      cout<<"\nBook Details are: "<<endl;
+      bk.display();
+    }
+    catch(string errmsg)
+    {
+      cout<<errmsg<<endl<<endl;
+      bk.clear();
+      bk.display();
+    }   
+    getline (cin, mystr);
+     try
+   {
+        cout<<"\nEnter Tape Details: "<<endl;
+        tp.setdata();
+        cout<<"\nTape Details are: "<<endl;
+        tp.display();
+    }
+    catch(string errmsg)
+    {
+      cout<<errmsg<<endl<<endl;
+      tp.clear();
+      tp.display();
+    }
+    return 0;
+}
